@@ -22,12 +22,9 @@ jobs:
       # 打包文档命令
       - run: npm run build
       - name: upload files to OSS
-        uses: manyuanrong/setup-ossutil@v1.0
+        uses: go-choppy/ossutil-github-action@master
           with:
-            # endpoint 可以去oss控制台上查看
+            ossArgs: 'cp -r -u .next/static oss://.next/static'
             endpoint: "oss-cn-hangzhou.aliyuncs.com"
-            # 使用我们之前配置在secrets里面的accesskeys来配置ossutil
-            access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-            access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
-      - name: Deply To OSS
-          run: ossutil cp .next/static oss://.next/static/ -rf
+            accessKey: ${{ secrets.ACCESS_KEY_ID }}
+            accessSecret: ${{ secrets.ACCESS_KEY_SECRET }}
