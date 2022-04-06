@@ -24,14 +24,14 @@ jobs:
 
 
       # 设置阿里云OSS的 id/secret，存储到 github 的 secrets 中
-    - name: setup aliyun oss
-      uses: manyuanrong/setup-ossutil@master
-      with:
-        endpoint: oss-cn-hangzhou.aliyuncs.com
-        access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-        access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
-    - name: 删除冗余文件
-      run: ossutil rm oss://.next/static -rf
-    - name: cp files to aliyun
-      run: |
-        ossutil cp -rf --meta Cache-Control:max-age=31536000 .next/static oss://.next/static
+      - name: setup aliyun oss
+        uses: manyuanrong/setup-ossutil@master
+        with:
+          endpoint: oss-cn-hangzhou.aliyuncs.com
+          access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
+      - name: 删除冗余文件
+        run: ossutil rm oss://.next/static -rf
+      - name: cp files to aliyun
+        run: |
+          ossutil cp -rf --meta Cache-Control:max-age=31536000 .next/static oss://.next/static
