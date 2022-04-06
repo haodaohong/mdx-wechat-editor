@@ -1,6 +1,13 @@
 const path = require('path')
 
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
+  generateBuildId: async () => {
+    // You can, for example, get the latest git commit hash here
+    return 'my-build-id'
+  },
+  assetPrefix: isProd ? 'https://mdx-editor.oss-cn-hangzhou.aliyuncs.com' : '',
   async headers() {
     return [
       {
