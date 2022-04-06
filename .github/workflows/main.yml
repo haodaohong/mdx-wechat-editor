@@ -32,6 +32,7 @@ jobs:
           access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
       - name: 删除冗余文件
         run: ossutil rm oss://.next/static -rf
+        if: github.event_name == 'schedule'
       - name: cp files to aliyun
         run: |
           ossutil cp -rf --meta Cache-Control:max-age=31536000 .next/static oss://.next/static
